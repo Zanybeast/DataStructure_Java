@@ -21,12 +21,12 @@ public abstract class  AbstractArrayList<E> implements List<E> {
     /*
      * To see if there's an element
      * */
-    public boolean contains(E e) {
-        return indexOf(e) != ELEMENT_NOT_FOUND;
+    public boolean contains(E element) {
+        return indexOf(element) != ELEMENT_NOT_FOUND;
     }
 
-    public void add(E e) {
-        add(size, e);
+    public void add(E element) {
+        add(size, element);
     }
 
     /****************

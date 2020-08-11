@@ -37,14 +37,14 @@ public class ArrayList<E> extends AbstractArrayList<E> {
     /*
      * Find the element's index in the array
      * */
-    public int indexOf(E e) {
-        if(e == null) {
+    public int indexOf(E element) {
+        if(element == null) {
             for (int i = 0; i < size; i++) {
                 if(elements[i] == null) return i;
             }
         } else {
             for (int i = 0; i < size; i++) {
-                if (e.equals(elements[i])) return i;
+                if (element.equals(elements[i])) return i;
             }
         }
         return ELEMENT_NOT_FOUND;
@@ -64,7 +64,7 @@ public class ArrayList<E> extends AbstractArrayList<E> {
     * @Author: Carl
     * @Date: 2020/7/2
     ****************/
-    public void add(int index, E e) {
+    public void add(int index, E element) {
         rangeCheckForAdd(index);
 
         ensureCapacity(size + 1);
@@ -72,7 +72,7 @@ public class ArrayList<E> extends AbstractArrayList<E> {
         for (int i = size; i > index; i--) {
             elements[i] = elements[i - 1];
         }
-        elements[index] = e;
+        elements[index] = element;
 
         size++;
     }
@@ -95,10 +95,10 @@ public class ArrayList<E> extends AbstractArrayList<E> {
     * @Author: Carl Zeng
     * @Date: 2020/7/2
     ****************/
-    public E set(int index, E e) {
+    public E set(int index, E element) {
         rangeCheck(index);
         E oldElement = elements[index];
-        elements[index] = e;
+        elements[index] = element;
         return  oldElement;
     }
     /****************

@@ -12,7 +12,7 @@ public interface List<E> {
     /*
      * To see if there's an element
      * */
-    public boolean contains(E e);
+    public boolean contains(E element);
     /*
     * Clear all elements
     * */
@@ -20,17 +20,7 @@ public interface List<E> {
     /*
      * Find the element's index in the array
      * */
-    public int indexOf(E e);
-
-    /****************
-     * @Description: 根据索引添加元素
-     * @Param: [index, e]
-     * @return: void
-     * @Author: Carl
-     * @Date: 2020/7/2
-     ****************/
-    void add(int index, E e);
-    public void add(E e);
+    public int indexOf(E element);
     /****************
      * @Description: Get the element from specific location
      * @Param: [index]
@@ -46,7 +36,16 @@ public interface List<E> {
      * @Author: Carl Zeng
      * @Date: 2020/7/2
      ****************/
-    E set(int index, E e);
+    E set(int index, E element);
+    /****************
+     * @Description: 根据索引添加元素
+     * @Param: [index, e]
+     * @return: void
+     * @Author: Carl
+     * @Date: 2020/7/2
+     ****************/
+    void add(int index, E element);
+    public void add(E element);
     /****************
      * @Description: Remove the element on the specific location
      * @Param: [index]

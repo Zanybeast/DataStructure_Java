@@ -1,6 +1,6 @@
 package com.company;
 
-public class SingleLinkedList<E> extends AbstractArrayList<E> {
+public class CircleSingleLinkedList<E> extends AbstractArrayList<E> {
     private Node<E> first;
 
     private static class Node<E> {
@@ -15,12 +15,7 @@ public class SingleLinkedList<E> extends AbstractArrayList<E> {
         @Override
         public String toString() {
             StringBuilder sb = new StringBuilder();
-            sb.append("(").append(element).append(")").append("->");
-            if (next != null) {
-                sb.append(next.element);
-            } else {
-                sb.append("null");
-            }
+            sb.append("(").append(element).append(")").append("->").append(next.element);
 
             return sb.toString();
         }
@@ -68,7 +63,18 @@ public class SingleLinkedList<E> extends AbstractArrayList<E> {
         rangeCheckForAdd(index);
 
         if (index == 0) {
-            first = new Node<>(element, first);
+            Node<E> newFirst = new Node<>(element, first);
+            Node<E> last = (size == 0) ? newFirst : node(size - 1);
+            last.next = newFirst;
+            first = newFirst;
+//            if (size == 0) {
+//                first = new Node<>(element, first);
+//                first.next = first;
+//            } else {
+//                Node<E> last = node(size - 1);
+//                first = new Node<>(element, first);
+//                last.next = first;
+//            }
         } else {
             Node<E> prev = node(index - 1);
             prev.next = new Node<>(element, prev.next);
@@ -97,7 +103,13 @@ public class SingleLinkedList<E> extends AbstractArrayList<E> {
 
         Node<E> node = first;
         if (index == 0) {
-            first = first.next;
+            if (size == 1) {
+                first = null;
+            } else {
+                Node<E> last = node(size - 1);
+                first = first.next;
+                last.next = first;
+            }
         } else {
             Node<E> prev = node(index - 1);
             node = prev.next;
@@ -112,7 +124,7 @@ public class SingleLinkedList<E> extends AbstractArrayList<E> {
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
-        sb.append("SingleLinkedList::Size = ").append(size);
+        sb.append("CircleSingleLinkedList::Size = ").append(size);
         sb.append(" Straight look: ").append("[");
         for (int i = 0; i < size; i++) {
             if (i != 0) {

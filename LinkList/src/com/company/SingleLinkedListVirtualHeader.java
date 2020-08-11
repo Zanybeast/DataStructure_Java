@@ -1,8 +1,18 @@
 package com.company;
 
-public class SingleLinkedList<E> extends AbstractArrayList<E> {
+public class SingleLinkedListVirtualHeader<E> extends AbstractArrayList<E>{
     private Node<E> first;
+    /*
+    * 带虚拟头结点的构造函数
+    * */
 
+    public SingleLinkedListVirtualHeader() {
+        first = new Node<>(null, null);
+    }
+
+    /*
+    * 内部结点类
+    * */
     private static class Node<E> {
         E element;
         Node<E> next;
@@ -35,14 +45,14 @@ public class SingleLinkedList<E> extends AbstractArrayList<E> {
     @Override
     public int indexOf(E element) {
         if (element == null) {
-            Node<E> node = first;
+             Node<E> node = first.next;
             for (int i = 0; i < size; i++) {
                 if (node.element == null) return i;
 
                 node = node.next;
             }
         } else {
-            Node<E> node = first;
+            Node<E> node = first.next;
             for (int i = 0; i < size; i++) {
                 if (element.equals(node.element)) return i;
 
@@ -56,7 +66,7 @@ public class SingleLinkedList<E> extends AbstractArrayList<E> {
     private Node<E> node(int index) {
         rangeCheck(index);
 
-        Node<E> node = first;
+        Node<E> node = first.next;
         for (int i = 0; i < index; i++) {
             node = node.next;
         }
@@ -67,12 +77,8 @@ public class SingleLinkedList<E> extends AbstractArrayList<E> {
     public void add(int index, E element) {
         rangeCheckForAdd(index);
 
-        if (index == 0) {
-            first = new Node<>(element, first);
-        } else {
-            Node<E> prev = node(index - 1);
-            prev.next = new Node<>(element, prev.next);
-        }
+        Node<E> prev = index == 0 ? first : node(index - 1);
+        prev.next = new Node<>(element, prev.next);
 
         size++;
     }
@@ -95,14 +101,9 @@ public class SingleLinkedList<E> extends AbstractArrayList<E> {
     public E remove(int index) {
         rangeCheck(index);
 
-        Node<E> node = first;
-        if (index == 0) {
-            first = first.next;
-        } else {
-            Node<E> prev = node(index - 1);
-            node = prev.next;
-            prev.next = node.next;
-        }
+        Node<E> prev = index == 0? first : node(index - 1);
+        Node<E> node = prev.next;
+        prev.next = node.next;
 
         size--;
 
@@ -112,7 +113,7 @@ public class SingleLinkedList<E> extends AbstractArrayList<E> {
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
-        sb.append("SingleLinkedList::Size = ").append(size);
+        sb.append("SingleLinkedListVirtualHeader::Size = ").append(size);
         sb.append(" Straight look: ").append("[");
         for (int i = 0; i < size; i++) {
             if (i != 0) {
