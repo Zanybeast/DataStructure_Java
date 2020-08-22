@@ -4,31 +4,171 @@ public class Main {
 
     public static void main(String[] args) {
 
-        testForJosephCircle();
+        testForCircleDeque();
 
-        testForStack();
+//        testForCircleQueue();
+//
+//        testForDeque();
+//        testForQueue();
+//
+//        testForJosephCircle();
+//
+//        testForStack();
+//
+//        List<Integer> circleLinkedList = new CircleLinkedList<>();
+//        testArrayListByInteger(circleLinkedList);
+//
+//        List<Integer> circleSingleLinkedList = new CircleSingleLinkedList<>();
+//        testArrayListByInteger(circleSingleLinkedList);
+//
+//        List<Integer> linkedList = new LinkedList<>();
+//        testArrayListByInteger(linkedList);
+//
+//        List<Integer> virtualHeaderSingleLinkedList = new SingleLinkedListVirtualHeader<>();
+//        testArrayListByInteger(virtualHeaderSingleLinkedList);
+//
+//        List<Integer> singleLinkedList = new SingleLinkedList<Integer>();
+//        List<Integer> dynamicArray = new ArrayList<>();
+//        testArrayListByInteger(dynamicArray);
+//        testArrayListByInteger(singleLinkedList);
+//
+//        List<Person> singleLinkedListPerson = new SingleLinkedList<>();
+//        List<Person> dynamicArrayPerson = new ArrayList<>();
+//        testArrayListWithPerson(singleLinkedListPerson);
+//        testArrayListWithPerson(dynamicArrayPerson);
+    }
 
-        List<Integer> circleLinkedList = new CircleLinkedList<>();
-        testArrayListByInteger(circleLinkedList);
+    public static void testForCircleDeque() {
+        CircleDeque<Integer> queue = new CircleDeque<>();
+        for (int i = 0; i < 5; i++) {
+            queue.enQueueFront(i);
+            queue.enQueueRear(i + 100);
+        }
 
-        List<Integer> circleSingleLinkedList = new CircleSingleLinkedList<>();
-        testArrayListByInteger(circleSingleLinkedList);
+        int size = queue.size();
+        StringBuilder sb = new StringBuilder();
+        sb.append("Queue::size = ").append(size).append(" Deque from front straight Look: [");
+        for (int i = 0; i < size; i++) {
+            if (i != 0) {
+                sb.append(", ");
+            }
+            sb.append(queue.deQueueFront());
+        }
+        sb.append("]\n");
+        System.out.println(sb.toString());
+        for (int i = 0; i < 5; i++) {
+            queue.enQueueFront(i);
+            queue.enQueueRear(i + 100);
+        }
 
-        List<Integer> linkedList = new LinkedList<>();
-        testArrayListByInteger(linkedList);
+        System.out.println(queue);
+        for (int i = 0; i < 2; i++) {
+            queue.deQueueFront();
+            queue.deQueueRear();
+        }
+        System.out.println("Deque 2 elements on both front and rear end, now the queue is: ");
+        System.out.println(queue);
+        for (int i = 0; i < 3; i++) {
+            queue.enQueueRear(i + 200);
+        }
+        System.out.println("Enque 3 elements on rear, now the queue is: ");
+        System.out.println(queue);
+        queue.deQueueRear();
+        queue.deQueueRear();
+        System.out.println("Deque 2 elements on rear, now the queue is: ");
+        System.out.println(queue);
+        for (int i = 0; i < 10; i++) {
+            queue.enQueueFront(i + 300);
+        }
+        System.out.println("Enqueue 10 elements on front, now the queue is: ");
+        System.out.println(queue);
 
-        List<Integer> virtualHeaderSingleLinkedList = new SingleLinkedListVirtualHeader<>();
-        testArrayListByInteger(virtualHeaderSingleLinkedList);
+        System.out.println("--------------------------------------------------");
+        System.out.println("--------------------------------------------------");
+    }
 
-        List<Integer> singleLinkedList = new SingleLinkedList<Integer>();
-        List<Integer> dynamicArray = new ArrayList<>();
-        testArrayListByInteger(dynamicArray);
-        testArrayListByInteger(singleLinkedList);
+    public static void testForCircleQueue() {
+        CircleQueue<Integer> queue = new CircleQueue<>();
 
-        List<Person> singleLinkedListPerson = new SingleLinkedList<>();
-        List<Person> dynamicArrayPerson = new ArrayList<>();
-        testArrayListWithPerson(singleLinkedListPerson);
-        testArrayListWithPerson(dynamicArrayPerson);
+        for (int i = 0; i < 10; i++) {
+            queue.enQueue(i);
+        }
+
+        System.out.println(queue);
+        int count = 3;
+        for (int i = 0; i < count; i++) {
+            queue.deQueue();
+        }
+        System.out.println("Deque 3 elements from front, now the queue is: ");
+        System.out.println(queue);
+        queue.enQueue(100);
+        queue.enQueue(105);
+        System.out.println("First enqueue 100 and then 105, now the queue is: ");
+        System.out.println(queue);
+        for (int i = 0; i < 5; i++) {
+            queue.enQueue(i + 200);
+        }
+        System.out.println("Enqueue more 5 elements, now the queue is: ");
+        System.out.println(queue);
+        System.out.println("--------------------------------------------------");
+        System.out.println("--------------------------------------------------");
+    }
+
+    public static void testForDeque() {
+        Deque<Integer> queue = new Deque<>();
+        for (int i = 0; i < 5; i++) {
+            queue.enQueueFront(i);
+            queue.enQueueRear(i + 100);
+        }
+        //should be: Front[4, 3, 2, 1, 0, 100, 101, 102, 103, 104]End
+        int size = queue.size();
+        StringBuilder sb = new StringBuilder();
+        sb.append("Queue::size = ").append(size).append(" Deque from front straight Look: [");
+        for (int i = 0; i < size; i++) {
+            if (i != 0) {
+                sb.append(", ");
+            }
+            sb.append(queue.deQueueFront());
+        }
+        sb.append("]\n");
+        System.out.println(sb.toString());
+
+        for (int i = 0; i < 5; i++) {
+            queue.enQueueFront(i);
+            queue.enQueueRear(i + 100);
+        }
+        sb.append("Queue::size = ").append(size).append(" Deque from end straight Look: [");
+        for (int i = 0; i < size; i++) {
+            if (i != 0) {
+                sb.append(", ");
+            }
+            sb.append(queue.deQueueRear());
+        }
+        sb.append("]");
+        //should be: [104, 103, 102, 101, 100, 0, 1, 2, 3, 4]
+        System.out.println(sb.toString());
+        System.out.println("--------------------------------------------------");
+        System.out.println("--------------------------------------------------");
+    }
+
+    public static void testForQueue() {
+        Queue<Integer> queue = new Queue<>();
+        for (int i = 0; i < 5; i++) {
+            queue.enQueue(i + 100);
+        }
+        int size = queue.size();
+        StringBuilder sb = new StringBuilder();
+        sb.append("Queue::size = ").append(size).append(" Deque from front straight Look: [");
+        for (int i = 0; i < size; i++) {
+            if (i != 0) {
+                sb.append(", ");
+            }
+            sb.append(queue.deQueue());
+        }
+        sb.append("]");
+        System.out.println(sb.toString());
+        System.out.println("--------------------------------------------------");
+        System.out.println("--------------------------------------------------");
     }
 
     public static void testForJosephCircle() {
@@ -50,6 +190,8 @@ public class Main {
         }
         sb.append("]");
         System.out.println(sb.toString());
+        System.out.println("--------------------------------------------------");
+        System.out.println("--------------------------------------------------");
     }
 
     public static void testForStack() {
@@ -74,6 +216,8 @@ public class Main {
         sb.append("]");
 
         System.out.println(sb.toString());
+        System.out.println("--------------------------------------------------");
+        System.out.println("--------------------------------------------------");
     }
 
     public static void testArrayListByInteger(List<Integer> arrayList) {
@@ -110,7 +254,8 @@ public class Main {
         System.out.println(arrayList);
         arrayList.clear();
         Asserts.test(arrayList.isEmpty());
-
+        System.out.println("--------------------------------------------------");
+        System.out.println("--------------------------------------------------");
     }
 
     public static void testArrayListWithPerson(List<Person> list) {
@@ -120,6 +265,8 @@ public class Main {
         list.add(new Person("Fring", 35));
 
         System.out.println(list);
+        System.out.println("--------------------------------------------------");
+        System.out.println("--------------------------------------------------");
     }
 
 //    public static void testArrayByInteger() {
