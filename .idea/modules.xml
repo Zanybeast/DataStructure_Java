@@ -2,6 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
+      <module fileurl="file://$PROJECT_DIR$/BinaryTree/BinaryTree.iml" filepath="$PROJECT_DIR$/BinaryTree/BinaryTree.iml" />
       <module fileurl="file://$PROJECT_DIR$/Complexity/Complexity.iml" filepath="$PROJECT_DIR$/Complexity/Complexity.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/DataStructure.iml" filepath="$PROJECT_DIR$/.idea/DataStructure.iml" />
       <module fileurl="file://$PROJECT_DIR$/LeetCode/LeetCode.iml" filepath="$PROJECT_DIR$/LeetCode/LeetCode.iml" />

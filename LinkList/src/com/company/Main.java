@@ -6,36 +6,36 @@ public class Main {
 
         testForCircleDeque();
 
-//        testForCircleQueue();
-//
-//        testForDeque();
-//        testForQueue();
-//
-//        testForJosephCircle();
-//
-//        testForStack();
-//
-//        List<Integer> circleLinkedList = new CircleLinkedList<>();
-//        testArrayListByInteger(circleLinkedList);
-//
-//        List<Integer> circleSingleLinkedList = new CircleSingleLinkedList<>();
-//        testArrayListByInteger(circleSingleLinkedList);
-//
-//        List<Integer> linkedList = new LinkedList<>();
-//        testArrayListByInteger(linkedList);
-//
-//        List<Integer> virtualHeaderSingleLinkedList = new SingleLinkedListVirtualHeader<>();
-//        testArrayListByInteger(virtualHeaderSingleLinkedList);
-//
-//        List<Integer> singleLinkedList = new SingleLinkedList<Integer>();
-//        List<Integer> dynamicArray = new ArrayList<>();
-//        testArrayListByInteger(dynamicArray);
-//        testArrayListByInteger(singleLinkedList);
-//
-//        List<Person> singleLinkedListPerson = new SingleLinkedList<>();
-//        List<Person> dynamicArrayPerson = new ArrayList<>();
-//        testArrayListWithPerson(singleLinkedListPerson);
-//        testArrayListWithPerson(dynamicArrayPerson);
+        testForCircleQueue();
+
+        testForDeque();
+        testForQueue();
+
+        testForJosephCircle();
+
+        testForStack();
+
+        List<Integer> circleLinkedList = new CircleLinkedList<>();
+        testArrayListByInteger(circleLinkedList);
+
+        List<Integer> circleSingleLinkedList = new CircleSingleLinkedList<>();
+        testArrayListByInteger(circleSingleLinkedList);
+
+        List<Integer> linkedList = new LinkedList<>();
+        testArrayListByInteger(linkedList);
+
+        List<Integer> virtualHeaderSingleLinkedList = new SingleLinkedListVirtualHeader<>();
+        testArrayListByInteger(virtualHeaderSingleLinkedList);
+
+        List<Integer> singleLinkedList = new SingleLinkedList<Integer>();
+        List<Integer> dynamicArray = new ArrayList<>();
+        testArrayListByInteger(dynamicArray);
+        testArrayListByInteger(singleLinkedList);
+
+        List<Person> singleLinkedListPerson = new SingleLinkedList<>();
+        List<Person> dynamicArrayPerson = new ArrayList<>();
+        testArrayListWithPerson(singleLinkedListPerson);
+        testArrayListWithPerson(dynamicArrayPerson);
     }
 
     public static void testForCircleDeque() {

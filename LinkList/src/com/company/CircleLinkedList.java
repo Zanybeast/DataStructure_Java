@@ -8,6 +8,8 @@ public class CircleLinkedList<E> extends AbstractArrayList<E> {
     * 为约瑟夫环问题而维护的东西
     * 也是最大程度发挥循环链表的功能
     * */
+
+
     private Node<E> current;
 
     public void reset() {
