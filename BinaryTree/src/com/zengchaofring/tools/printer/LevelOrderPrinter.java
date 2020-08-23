@@ -1,4 +1,4 @@
-package com.zengchaofring.tools;
+package com.zengchaofring.tools.printer;
 
 import java.util.ArrayList;
 import java.util.Collection;

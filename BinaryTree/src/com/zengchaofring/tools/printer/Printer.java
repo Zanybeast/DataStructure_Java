@@ -1,4 +1,4 @@
-package com.zengchaofring.tools;
+package com.zengchaofring.tools.printer;
 
 public abstract class Printer {	
 	/**
