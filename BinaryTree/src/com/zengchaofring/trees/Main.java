@@ -30,11 +30,28 @@ public class Main {
 
     public static void main(String[] args) {
 
-        testBSTHeight();
+        testRemoveMethod();
+//        testBSTHeight();
 //        testIfBSTIsComplete();
 //        testForBSTPreOrder();
 //        testForBSTUsingPerson();
 //        testForBinaryTree1();
+    }
+
+    public static void testRemoveMethod() {
+        BinarySearchTree<Integer> bst = new BinarySearchTree<>();
+        Integer[] data = new Integer[] {
+                7, 4, 9, 2, 5, 8, 11, 3, 12, 1
+        };
+        for (int i = 0; i < data.length; i++) {
+            bst.add(data[i]);
+        }
+
+        BinaryTrees.println(bst);
+        bst.remove(11);
+        bst.remove(7);
+        System.out.println(bst.remove(12));
+        BinaryTrees.println(bst);
     }
 
     public static void testBSTHeight() {
@@ -61,18 +78,18 @@ public class Main {
     }
 
     public static void testForBSTPreOrder() {
-        BinarySearchTree<Integer> bst1 = new BinarySearchTree<>();
+        BinarySearchTree<Integer> bst = new BinarySearchTree<>();
         Integer[] data = new Integer[] {
                 7, 4, 9, 2, 5, 8, 11, 3, 12, 1
         };
         for (int i = 0; i < data.length; i++) {
-            bst1.add(data[i]);
+            bst.add(data[i]);
         }
         //7 4 2 1 3 5 9 8 11 12
-        BinaryTrees.println(bst1);
+        BinaryTrees.println(bst);
         StringBuilder sb = new StringBuilder();
         sb.append("PreOrder result: ");
-        bst1.preOrder(new BinarySearchTree.Visitor<Integer>() {
+        bst.preOrder(new BinarySearchTree.Visitor<Integer>() {
             @Override
             public void visit(Integer element) {
                 sb.append("_").append(element).append("_");
@@ -80,7 +97,7 @@ public class Main {
         });
         sb.append("\n");
         sb.append("Inorder result: ");
-        bst1.inOrder(new BinarySearchTree.Visitor<Integer>() {
+        bst.inOrder(new BinarySearchTree.Visitor<Integer>() {
             @Override
             public void visit(Integer element) {
                 sb.append("_").append(element).append("_");
@@ -88,7 +105,7 @@ public class Main {
         });
         sb.append("\n");
         sb.append("Postorder result: ");
-        bst1.postOrder(new BinarySearchTree.Visitor<Integer>() {
+        bst.postOrder(new BinarySearchTree.Visitor<Integer>() {
             @Override
             public void visit(Integer element) {
                 sb.append("_").append(element).append("_");
@@ -96,7 +113,7 @@ public class Main {
         });
         sb.append("\n");
         sb.append("LevelOrder result: ");
-        bst1.levelOrder(new BinarySearchTree.Visitor<Integer>() {
+        bst.levelOrder(new BinarySearchTree.Visitor<Integer>() {
             @Override
             public void visit(Integer element) {
                 sb.append("_").append(element).append("_");
@@ -105,7 +122,7 @@ public class Main {
         sb.append("\n");
 
         System.out.println(sb.toString());
-        System.out.println(bst1);
+        System.out.println(bst);
     }
 
     public static void testForBinaryTree1() {

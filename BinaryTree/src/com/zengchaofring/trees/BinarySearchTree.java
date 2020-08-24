@@ -40,6 +40,13 @@ public class BinarySearchTree<E> implements BinaryTreeInfo {
         size = 0;
     }
 
+    /*
+     * @Author carl
+     * @Description 添加元素
+     * @Date 08:40 2020/8/24
+     * @Param [element]
+     * @Return void
+     **/
     public void add(E element) {
         elementNotNullCheck(element);
 
@@ -71,6 +78,74 @@ public class BinarySearchTree<E> implements BinaryTreeInfo {
         }
         size++;
     }
+    /*
+     * @Author carl
+     * @Description 删除元素
+     * @Date 08:41 2020/8/24
+     * @Param [element]
+     * @Return E
+     **/
+    public E remove(E element) {
+        return remove(node(element));
+    }
+
+    private E remove(Node<E> node) {
+        if (node == null) return null;
+
+        if (node.hasTwoChildren()) {
+            Node<E> s = successor(node);
+
+            node.element = s.element;
+
+            node = s;
+        }
+
+        Node<E> replaceNode = node.left != null ? node.left : node.right;
+
+        if (replaceNode != null) {
+            replaceNode.parent = node.parent;
+
+            if (node.parent == null) {
+                root = replaceNode;
+            } else if (node == node.parent.left) {
+                node.parent.left = replaceNode;
+            } else {
+                node.parent.right = replaceNode;
+            }
+        } else if (node.parent == null) {
+             node = null;
+        } else {
+            if (node == node.parent.left) {
+                node.parent.left = null;
+            } else {
+                node.parent.right = null;
+            }
+        }
+
+        size--;
+
+        return node.element;
+    }
+
+    private Node<E> node(E element) {
+        if (element == null) return null;
+
+        Node<E> node = root;
+
+        while (node != null) {
+            int cmp = compare(element, node.element);
+            if (cmp > 0) {
+                node = node.right;
+            } else if (cmp < 0) {
+                node = node.left;
+            } else {
+                return node;
+            }
+        }
+
+        return null;
+    }
+
     /****************************************************************************
      ****************************************************************************
      *遍历相关
@@ -370,7 +445,12 @@ public class BinarySearchTree<E> implements BinaryTreeInfo {
 
     @Override
     public Object string(Object node) {
-        return ((Node<E>)node).element;
+        Node<E> myNode = (Node<E>)node;
+        String parentString = "null";
+        if (myNode.parent != null) {
+            parentString = myNode.parent.element.toString();
+        }
+        return myNode.element + "_p(" + parentString + ")";
     }
 
     private static class Node<E> {
