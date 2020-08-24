@@ -40,6 +40,10 @@ public class BinarySearchTree<E> implements BinaryTreeInfo {
         size = 0;
     }
 
+    public boolean contains(E element) {
+        return node(element) != null;
+    }
+
     /*
      * @Author carl
      * @Description 添加元素
