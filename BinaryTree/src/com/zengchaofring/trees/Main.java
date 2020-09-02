@@ -30,12 +30,42 @@ public class Main {
 
     public static void main(String[] args) {
 
-        testRemoveMethod();
+        testAVLTreeRemove();
+//        testAVLTreeAdd();
+//        testRemoveMethod();
 //        testBSTHeight();
 //        testIfBSTIsComplete();
 //        testForBSTPreOrder();
 //        testForBSTUsingPerson();
 //        testForBinaryTree1();
+    }
+
+    public static void testAVLTreeRemove() {
+        Integer[] data = new Integer[] {
+                6, 8, 14, 18, 23, 49, 50, 52, 76, 79, 86, 88, 100
+        };
+        AVLTree<Integer> avlTree = new AVLTree<>();
+        for (int i = 0; i < data.length; i++) {
+            avlTree.add(data[i]);
+        }
+        avlTree.remove(76);
+        avlTree.remove(86);
+        avlTree.remove(79);
+        avlTree.remove(100);
+
+        BinaryTrees.println(avlTree);
+    }
+
+    public static void testAVLTreeAdd() {
+        Integer[] data = new Integer[] {
+                6, 8, 14, 18, 23, 49, 50, 52, 76, 79, 86, 88, 100
+        };
+        AVLTree<Integer> avlTree = new AVLTree<>();
+        for (int i = 0; i < data.length; i++) {
+            avlTree.add(data[i]);
+        }
+
+        BinaryTrees.println(avlTree);
     }
 
     public static void testRemoveMethod() {
