@@ -1,12 +1,16 @@
 package com.zengchaofring.trees;
 
 import com.zengchaofring.classes.*;
-import com.zengchaofring.tools.filePrinter.Files;
+import com.zengchaofring.setAndMap.*;
+import com.zengchaofring.tools.filePrinter.FilesTool;
 import com.zengchaofring.tools.printer.BinaryTrees;
+import com.zengchaofring.tools.time.TimeTools;
+import com.zengchaofring.tools.fileInfo.*;
 
 import java.text.SimpleDateFormat;
 import java.util.Comparator;
 import java.util.Date;
+import java.util.HashMap;
 
 /**
  * @ClassName Main
@@ -25,12 +29,16 @@ public class Main {
         result += str;
         result += "\n\n\n";
         String filePath = "./Data/" + fileName + ".txt";
-        Files.writeToFile(filePath, result, true);
+        FilesTool.writeToFile(filePath, result, true);
     }
 
     public static void main(String[] args) {
 
-        testRBTreeRemove();
+        testForHash01();
+//        testForMap02();
+//        testTreeMap();
+//        testForSet();
+//        testRBTreeRemove();
 //        testRBTreeAdd();
 //        testAVLTreeRemove();
 //        testAVLTreeAdd();
@@ -40,6 +48,116 @@ public class Main {
 //        testForBSTPreOrder();
 //        testForBSTUsingPerson();
 //        testForBinaryTree1();
+    }
+
+    public static void testForHash01() {
+        Person p1 = new Person(13, 1.55f, "jack");
+        Person p2 = new Person(15, 1.74f, "jason");
+        Person p3 = new Person(13, 1.55f, "jack");
+        HashMap<Object, Object> map = new HashMap<>();
+        map.put(p1, "hello");
+        map.put(p2, "good");
+        map.put(p3, "great");
+
+        System.out.println(p1.hashCode());
+        System.out.println(p2.hashCode());
+        System.out.println(p3.hashCode());
+
+        System.out.println(map.size());
+        for (java.util.Map.Entry<Object, Object> entry:
+                map.entrySet()) {
+            System.out.println("key: " + entry.getKey() + " and value: " + entry.getValue());
+        }
+
+        /*String s = "hello";
+        int hashCode = 0;
+        int sz = s.length();
+        for (int i = 0; i < sz; i++) {
+            char c = s.charAt(i);
+            hashCode = hashCode * 31 + c;
+        }
+        System.out.println(hashCode);
+        System.out.println(s.hashCode());*/
+
+        /*int i = 100;
+        System.out.println(31 * i);
+        System.out.println((i << 5) + i);*/
+    }
+
+    public static void testForMap02() {
+        FileInfo fileInfo = Files.read("/Users/carl/Desktop/src/java/util", new String[]{"java"});
+
+        System.out.println("文件数量: " + fileInfo.getFiles());
+        System.out.println("代码行数: " + fileInfo.getLines());
+        String[] words = fileInfo.words();
+        System.out.println("单词数量: " + words.length);
+
+        Map<String, Integer> map = new TreeMap<>();
+        for (int i = 0; i < words.length; i++) {
+            Integer count = map.get(words[i]);
+            count = (count == null) ? 1 : (count + 1);
+            map.put(words[i], count);
+        }
+
+        map.traversal(new TreeMap.Visitor<String, Integer>() {
+            @Override
+            public boolean visit(String key, Integer value) {
+                System.out.println(key + " occurs: " + value + " times");
+                return false;
+            }
+        });
+    }
+
+    public static void testTreeMap() {
+        TreeMap<String, Integer> map = new TreeMap<>();
+        map.put("a", 15);
+        map.put("b", 20);
+        map.put("c", 22);
+        map.put("b", 53);
+        map.put("a", 22);
+        map.put("d", 100);
+
+        map.traversal(new Map.Visitor<String, Integer>() {
+            @Override
+            public boolean visit(String key, Integer value) {
+                System.out.println(key + "_" + value);
+                return false;
+            }
+        });
+    }
+
+    public static void testForSet() {
+        FileInfo fileInfo = Files.read("/Users/carl/Desktop/src/java/util", new String[]{"java"});
+
+        System.out.println("文件数量: " + fileInfo.getFiles());
+        System.out.println("代码行数: " + fileInfo.getLines());
+        String[] words = fileInfo.words();
+        System.out.println("单词数量: " + words.length);
+
+        TimeTools.test("LinkSet Test", new TimeTools.Task() {
+            @Override
+            public void execute() {
+                testSet(new LinkSet<>(), words);
+            }
+        });
+        TimeTools.test("TreeSet Test", new TimeTools.Task() {
+            @Override
+            public void execute() {
+                testSet(new TreeSet<>(), words);
+            }
+        });
+    }
+
+    public static void testSet(Set<String> set, String[] words) {
+        for (int i = 0; i < words.length; i++) {
+            set.add(words[i]);
+        }
+        for (int i = 0; i < words.length; i++) {
+            set.contains(words[i]);
+        }
+        for (int i = 0; i < words.length; i++) {
+            set.remove(words[i]);
+        }
     }
 
     public static void testRBTreeRemove() {
@@ -177,32 +295,36 @@ public class Main {
         sb.append("PreOrder result: ");
         bst.preOrder(new BST.Visitor<Integer>() {
             @Override
-            public void visit(Integer element) {
+            public boolean visit(Integer element) {
                 sb.append("_").append(element).append("_");
+                return false;
             }
         });
         sb.append("\n");
         sb.append("Inorder result: ");
         bst.inOrder(new BST.Visitor<Integer>() {
             @Override
-            public void visit(Integer element) {
+            public boolean visit(Integer element) {
                 sb.append("_").append(element).append("_");
+                return false;
             }
         });
         sb.append("\n");
         sb.append("Postorder result: ");
         bst.postOrder(new BST.Visitor<Integer>() {
             @Override
-            public void visit(Integer element) {
+            public boolean visit(Integer element) {
                 sb.append("_").append(element).append("_");
+                return false;
             }
         });
         sb.append("\n");
         sb.append("LevelOrder result: ");
         bst.levelOrder(new BST.Visitor<Integer>() {
             @Override
-            public void visit(Integer element) {
+            public boolean visit(Integer element) {
                 sb.append("_").append(element).append("_");
+                return false;
             }
         });
         sb.append("\n");

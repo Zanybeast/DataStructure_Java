@@ -4,7 +4,7 @@ import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileWriter;
 
-public class Files {
+public class FilesTool {
 	
 	public static void writeToFile(String filePath, Object data) {
 		writeToFile(filePath, data, false);

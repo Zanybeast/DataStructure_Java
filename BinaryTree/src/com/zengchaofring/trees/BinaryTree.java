@@ -2,7 +2,6 @@ package com.zengchaofring.trees;
 
 import com.zengchaofring.tools.printer.BinaryTreeInfo;
 
-import java.util.Comparator;
 import java.util.LinkedList;
 import java.util.Queue;
 
@@ -18,7 +17,7 @@ public class BinaryTree<E> implements BinaryTreeInfo {
     protected Node<E> root;
 
     public interface Visitor<E> {
-        void visit(E element);
+        boolean visit(E element);
     }
 
     protected Node<E> createNode(E element, Node<E> parent) {
