@@ -1,10 +1,6 @@
 package com.zengchaofring.trees;
 
-import com.zengchaofring.tools.printer.*;
-
 import java.util.Comparator;
-import java.util.LinkedList;
-import java.util.Queue;
 
 /**
  * @ClassName BinarySearchTree
@@ -14,15 +10,15 @@ import java.util.Queue;
  * @Version 1.0
  **/
 @SuppressWarnings("unchecked")
-public class BinarySearchTree<E> extends BinaryTree {
+public class BST<E> extends BinaryTree {
 
     private Comparator<E> comparator;
 
-    public BinarySearchTree() {
+    public BST() {
         this(null);
     }
 
-    public BinarySearchTree(Comparator<E> comparator) {
+    public BST(Comparator<E> comparator) {
         this.comparator = comparator;
     }
 
@@ -51,7 +47,7 @@ public class BinarySearchTree<E> extends BinaryTree {
         Node<E> parent = root;
         Node<E> node = root;
         int cmp = 0;
-        while (node != null) {
+        do {
             cmp = compare(element, node.element);
             parent = node;
             if (cmp > 0) {
@@ -59,9 +55,10 @@ public class BinarySearchTree<E> extends BinaryTree {
             } else if (cmp < 0) {
                 node = node.left;
             } else {
+                node.element = element;
                 return;
             }
-        }
+        } while (node != null);
         Node<E> newNode = createNode(element, parent);
         if (cmp > 0) {
             parent.right = newNode;
@@ -88,6 +85,8 @@ public class BinarySearchTree<E> extends BinaryTree {
     private E remove(Node<E> node) {
         if (node == null) return null;
 
+        size--;
+
         if (node.hasTwoChildren()) {
             Node<E> s = successor(node);
 
@@ -108,6 +107,8 @@ public class BinarySearchTree<E> extends BinaryTree {
             } else {
                 node.parent.right = replaceNode;
             }
+
+            afterRemove(replaceNode);
         } else if (node.parent == null) {
              root = null;
 
@@ -122,7 +123,7 @@ public class BinarySearchTree<E> extends BinaryTree {
             afterRemove(node);
         }
 
-        size--;
+
 
         return node.element;
     }

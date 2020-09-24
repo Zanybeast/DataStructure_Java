@@ -24,13 +24,15 @@ public class Main {
         result += "------------------------------\n";
         result += str;
         result += "\n\n\n";
-        String filePath = "/Users/carl/Desktop/Temp/数据结构测试结果/" + fileName + ".txt";
+        String filePath = "./Data/" + fileName + ".txt";
         Files.writeToFile(filePath, result, true);
     }
 
     public static void main(String[] args) {
 
-        testAVLTreeRemove();
+        testRBTreeRemove();
+//        testRBTreeAdd();
+//        testAVLTreeRemove();
 //        testAVLTreeAdd();
 //        testRemoveMethod();
 //        testBSTHeight();
@@ -38,6 +40,41 @@ public class Main {
 //        testForBSTPreOrder();
 //        testForBSTUsingPerson();
 //        testForBinaryTree1();
+    }
+
+    public static void testRBTreeRemove() {
+        Integer[] data = new Integer[] {
+                6, 8, 14, 18, 23, 49, 50, 52, 76, 79, 86, 88, 100
+        };
+        RBTree<Integer> rbTree = new RBTree<>();
+        for (int i = 0; i < data.length; i++) {
+            rbTree.add(data[i]);
+        }
+        BinaryTrees.println(rbTree);
+
+        rbTree.remove(23);
+        System.out.println("-------------【23】Removed -------------");
+        BinaryTrees.println(rbTree);
+
+        rbTree.remove(6);
+        System.out.println("-------------【6】Removed -------------");
+        BinaryTrees.println(rbTree);
+
+        rbTree.remove(18);
+        System.out.println("-------------【18】Removed -------------");
+        BinaryTrees.println(rbTree);
+    }
+
+    public static void testRBTreeAdd() {
+        Integer[] data = new Integer[] {
+                6, 8, 14, 18, 23, 49, 50, 52, 76, 79, 86, 88, 100
+        };
+        RBTree<Integer> rbTree = new RBTree<>();
+        for (int i = 0; i < data.length; i++) {
+            rbTree.add(data[i]);
+        }
+        BinaryTrees.println(rbTree);
+        writeToFileWithTree(BinaryTrees.printString(rbTree), "testForRBTreeAdd");
     }
 
     public static void testAVLTreeRemove() {
@@ -48,12 +85,31 @@ public class Main {
         for (int i = 0; i < data.length; i++) {
             avlTree.add(data[i]);
         }
-        avlTree.remove(76);
-        avlTree.remove(86);
-        avlTree.remove(79);
-        avlTree.remove(100);
 
         BinaryTrees.println(avlTree);
+
+        avlTree.remove(52);
+        System.out.println("----------【52】removed----------");
+//        writeToFileWithTree("----------【52】removed----------", "testForAVLTreeRemoved");
+        BinaryTrees.println(avlTree);
+//        writeToFileWithTree(BinaryTrees.printString(avlTree), "testForAVLTreeRemoved");
+
+        avlTree.remove(88);
+        System.out.println("----------【88】removed----------");
+//        writeToFileWithTree("----------【88】removed----------", "testForAVLTreeRemoved");
+        BinaryTrees.println(avlTree);
+//        writeToFileWithTree(BinaryTrees.printString(avlTree), "testForAVLTreeRemoved");
+
+        avlTree.remove(86);
+        System.out.println("----------【86】removed----------");
+//        writeToFileWithTree("----------【86】removed----------", "testForAVLTreeRemoved");
+        BinaryTrees.println(avlTree);
+//        writeToFileWithTree(BinaryTrees.printString(avlTree), "testForAVLTreeRemoved");
+
+        avlTree.remove(79);
+//        writeToFileWithTree("----------【79】removed----------", "testForAVLTreeRemoved");
+        BinaryTrees.println(avlTree);
+//        writeToFileWithTree(BinaryTrees.printString(avlTree), "testForAVLTreeRemoved");
     }
 
     public static void testAVLTreeAdd() {
@@ -69,7 +125,7 @@ public class Main {
     }
 
     public static void testRemoveMethod() {
-        BinarySearchTree<Integer> bst = new BinarySearchTree<>();
+        BST<Integer> bst = new BST<>();
         Integer[] data = new Integer[] {
                 7, 4, 9, 2, 5, 8, 11, 3, 12, 1
         };
@@ -85,7 +141,7 @@ public class Main {
     }
 
     public static void testBSTHeight() {
-        BinarySearchTree<Integer> bst = new BinarySearchTree<>();
+        BST<Integer> bst = new BST<>();
         for (int i = 0; i < 20; i++) {
             bst.add((int) (Math.random() * 100));
         }
@@ -96,7 +152,7 @@ public class Main {
     }
 
     public static void testIfBSTIsComplete() {
-        BinarySearchTree<Integer> bst = new BinarySearchTree<>();
+        BST<Integer> bst = new BST<>();
         Integer[] data = new Integer[] {
                 56, 48, 95, 32, 51, 83, 112, 16, 34, 50, 52, 74
         };
@@ -108,7 +164,7 @@ public class Main {
     }
 
     public static void testForBSTPreOrder() {
-        BinarySearchTree<Integer> bst = new BinarySearchTree<>();
+        BST<Integer> bst = new BST<>();
         Integer[] data = new Integer[] {
                 7, 4, 9, 2, 5, 8, 11, 3, 12, 1
         };
@@ -119,7 +175,7 @@ public class Main {
         BinaryTrees.println(bst);
         StringBuilder sb = new StringBuilder();
         sb.append("PreOrder result: ");
-        bst.preOrder(new BinarySearchTree.Visitor<Integer>() {
+        bst.preOrder(new BST.Visitor<Integer>() {
             @Override
             public void visit(Integer element) {
                 sb.append("_").append(element).append("_");
@@ -127,7 +183,7 @@ public class Main {
         });
         sb.append("\n");
         sb.append("Inorder result: ");
-        bst.inOrder(new BinarySearchTree.Visitor<Integer>() {
+        bst.inOrder(new BST.Visitor<Integer>() {
             @Override
             public void visit(Integer element) {
                 sb.append("_").append(element).append("_");
@@ -135,7 +191,7 @@ public class Main {
         });
         sb.append("\n");
         sb.append("Postorder result: ");
-        bst.postOrder(new BinarySearchTree.Visitor<Integer>() {
+        bst.postOrder(new BST.Visitor<Integer>() {
             @Override
             public void visit(Integer element) {
                 sb.append("_").append(element).append("_");
@@ -143,7 +199,7 @@ public class Main {
         });
         sb.append("\n");
         sb.append("LevelOrder result: ");
-        bst.levelOrder(new BinarySearchTree.Visitor<Integer>() {
+        bst.levelOrder(new BST.Visitor<Integer>() {
             @Override
             public void visit(Integer element) {
                 sb.append("_").append(element).append("_");
@@ -156,7 +212,7 @@ public class Main {
     }
 
     public static void testForBinaryTree1() {
-        BinarySearchTree<Integer> bst1 = new BinarySearchTree<>();
+        BST<Integer> bst1 = new BST<>();
         Integer[] data = new Integer[] {
                 7, 4, 9, 2, 5, 8, 11, 3, 12, 1
         };
@@ -171,7 +227,7 @@ public class Main {
 
 
     public static void testForBSTUsingPerson() {
-        BinarySearchTree<Person> bst = new BinarySearchTree<>(new Comparator<Person>() {
+        BST<Person> bst = new BST<>(new Comparator<Person>() {
             @Override
             public int compare(Person o1, Person o2) {
                 return o1.getAge() - o2.getAge();

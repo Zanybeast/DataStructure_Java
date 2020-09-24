@@ -9,7 +9,7 @@ import java.util.Comparator;
  * @Date 2020/8/25 11:19
  * @Version 1.0
  **/
-public class AVLTree<E> extends BinarySearchTree<E> {
+public class AVLTree<E> extends BBST<E> {
     private Object element;
     private Node parent;
 
@@ -111,41 +111,31 @@ public class AVLTree<E> extends BinarySearchTree<E> {
         }
     }
 
-    private void rotateRight(Node<E> grand) {
-        Node<E> parent = grand.left;
-        Node<E> child = parent.right;
+    /*
+     * @Author carl
+     * @Description AVLTree特有的恢复平衡的处理
+     * @Date 20:16 2020/9/23
+     * @Param
+     * @Return
+     **/
+    @Override
+    protected void afterRotate(Node<E> grand, Node<E> parent, Node<E> child) {
+        super.afterRotate(grand, parent, child);
 
-        grand.left = child;
-        parent.right = grand;
-        afterRotate(grand, parent, child);
-    }
-
-    private void rotateLeft(Node<E> grand) {
-        Node<E> parent = grand.right;
-        Node<E> child = parent.left;
-
-        grand.right = child;
-        parent.left = grand;
-        afterRotate(grand, parent, child);
-    }
-
-    private void afterRotate(Node<E> grand, Node<E> parent, Node<E> child) {
-        parent.parent = grand.parent;
-        if (grand.isLeftChild()) {
-            grand.parent.left = parent;
-        } else if (grand.isRightChild()) {
-            grand.parent.right = parent;
-        } else {
-            root = parent;
-        }
-
-        if (child != null) {
-            child.parent = grand;
-        }
         //更新高度, 顺序不能乱
         updateHeight(grand);
         updateHeight(parent);
     }
+
+    @Override
+    protected void rotate(Node<E> r, Node<E> b, Node<E> c, Node<E> d, Node<E> e, Node<E> f) {
+        super.rotate(r, b, c, d, e, f);
+
+        updateHeight(b);
+        updateHeight(f);
+        updateHeight(d);
+    }
+
     /*
      * @Author carl
      * @Description 另一种恢复平衡的方法, 将四种方法归纳通用
@@ -172,40 +162,7 @@ public class AVLTree<E> extends BinarySearchTree<E> {
         }
     }
 
-    private void rotate(
-            Node<E> r,
-            Node<E> b, Node<E> c,
-            Node<E> d,
-            Node<E> e, Node<E> f
-    ) {
-        d.parent = r.parent;
-        if (r.isLeftChild()) {
-            r.parent.left = d;
-        } else if (r.isRightChild()) {
-            r.parent.right = d;
-        } else {
-            root = d;
-        }
 
-        b.right = c;
-        if (c != null) {
-            c.parent = b;
-        }
-        updateHeight(b);
-
-        f.left = e;
-        if (e != null) {
-            e.parent = f;
-        }
-        updateHeight(f);
-
-        d.left = b;
-        d.right = f;
-        b.parent = d;
-        f.parent = d;
-        updateHeight(d);
-
-    }
     /*
      * @Author carl
      * @Description 判断是否平衡
