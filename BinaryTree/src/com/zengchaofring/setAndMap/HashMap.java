@@ -634,7 +634,7 @@ public class HashMap<K, V> implements Map<K, V> {
         return new Node<>(key, value, parent);
     }
 
-    private static class Node<K, V> {
+    protected static class Node<K, V> {
         int hash;   //该哈希值是由key计算出来的哈希值
         K key;
         V value;
